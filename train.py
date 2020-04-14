@@ -24,6 +24,7 @@ output_tensor = MobileNetv3_small(CFG.num_classes)(input_tensor)
 model = tf.keras.Model(inputs=input_tensor, outputs=output_tensor)
 
 optimizer = tf.keras.optimizers.RMSprop(lr=CFG.lr_init, momentum=0.9)
+cce = tf.keras.losses.CategoricalCrossentropy()
 avg_loss = tf.keras.metrics.Mean('loss', dtype=tf.float32)
 avg_val_loss = tf.keras.metrics.Mean('val_loss', dtype=tf.float32)
 # ema = tf.train.ExponentialMovingAverage(decay=0.9999)
@@ -47,7 +48,7 @@ tf.print("Finish creating model.")
 def train_step(img, classes):
     with tf.GradientTape() as tape:
         pred = model(img)
-        loss = tf.keras.losses.categorical_crossentropy(classes, pred)
+        loss = cce(classes, pred)
     gradients = tape.gradient(loss, model.trainable_variables)
     optimizer.apply_gradients(zip(gradients, model.trainable_variables))
     # ema.apply(model.trainable_variables)
@@ -78,7 +79,7 @@ for epoch in range(1, 1+CFG.train_epoch):
 
     for _, val_img, val_class in val_set:
         pred = model(val_img)
-        loss_val = tf.keras.losses.categorical_crossentropy(val_class, pred)
+        loss_val = cce(val_class, pred)
         avg_val_loss.update_state(loss_val)
 
     tf.print("Average train loss:      %.5f" % avg_loss)
