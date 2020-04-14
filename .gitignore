@@ -1,0 +1,8 @@
+.vscode/
+/data/
+/env/
+/log/
+/test/
+*.h5
+__pycache__/
+test*
