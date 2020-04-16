@@ -44,15 +44,17 @@ tf.print("Finish creating model.")
 ####################################
 
 
-@tf.function
+# @tf.function
 def train_step(img, classes):
     with tf.GradientTape() as tape:
-        pred = model(img)
-        loss = cce(classes, pred)
-    gradients = tape.gradient(loss, model.trainable_variables)
+        pred = model(img, training=True)
+        regularization_loss = tf.math.add_n(model.losses)
+        pred_loss = cce(classes, pred)
+        total_loss = pred_loss + regularization_loss
+    gradients = tape.gradient(total_loss, model.trainable_variables)
     optimizer.apply_gradients(zip(gradients, model.trainable_variables))
     # ema.apply(model.trainable_variables)
-    return loss
+    return total_loss
 
 
 tf.print("Start training for", CFG.train_epoch, "epochs.")
