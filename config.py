@@ -7,8 +7,8 @@ CFG = edict()
 # config train
 CFG.data_aug = False
 CFG.train_epoch = 9
-CFG.batch_size = 15
-CFG.batch_per_epoch = 596
+CFG.batch_size = 10
+CFG.batch_per_epoch = 1000
 CFG.lr_init = 0.0001
 CFG.lr_decay = 0.09
 CFG.decay_step = 3 * CFG.batch_per_epoch
@@ -20,10 +20,11 @@ CFG.log_dir = "./log/"
 CFG.checkpoint_dir = CFG.log_dir + "ckpt/"
 CFG.checkpoint_prefix = CFG.checkpoint_dir + "ckpt"
 # config data
-CFG.classes = ["person", "bird", "cat", "cow", "dog", "horse",
-               "sheep", "aeroplane", "bicycle", "boat", "bus",
-               "car", "motorbike", "train", "bottle", "chair",
-               "diningtable", "pottedplant", "sofa", "tvmonitor"]
+# CFG.classes = ["person", "bird", "cat", "cow", "dog", "horse",
+#                "sheep", "aeroplane", "bicycle", "boat", "bus",
+#                "car", "motorbike", "train", "bottle", "chair",
+#                "diningtable", "pottedplant", "sofa", "tvmonitor"]
+CFG.classes = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 CFG.num_classes = len(CFG.classes)
 # config model
 CFG.input_shape = [224, 224]
