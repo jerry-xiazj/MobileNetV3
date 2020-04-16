@@ -8,10 +8,10 @@ CFG = edict()
 CFG.data_aug = False
 CFG.train_epoch = 9
 CFG.batch_size = 10
-CFG.batch_per_epoch = 1000
+CFG.batch_per_epoch = 1
 CFG.lr_init = 0.0001
-CFG.lr_decay = 0.09
-CFG.decay_step = 3 * CFG.batch_per_epoch
+CFG.lr_decay = 0.9
+CFG.decay_step = 1 * CFG.batch_per_epoch
 # config path
 CFG.train_file = "./data/train_file"
 CFG.val_file = "./data/val_file"

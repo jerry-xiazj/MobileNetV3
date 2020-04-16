@@ -47,7 +47,7 @@ tf.print("Finish creating model.")
 # @tf.function
 def train_step(img, classes):
     with tf.GradientTape() as tape:
-        pred = model(img, training=True)
+        pred = model(img)
         regularization_loss = tf.math.add_n(model.losses)
         pred_loss = cce(classes, pred)
         total_loss = pred_loss + regularization_loss

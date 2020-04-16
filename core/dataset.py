@@ -26,9 +26,8 @@ class Dataset:
     def __next__(self):
         with tf.device('/cpu:0'):
             if self.batch_count < self.batch_per_epoch:
-                batch_image, batch_class = self.generate_batch()
                 self.batch_count += 1
-                return self.batch_count, batch_image, batch_class
+                return self.batch_count, self.generate_batch()
             else:
                 self.batch_count = 0
                 raise StopIteration
@@ -37,7 +36,7 @@ class Dataset:
         with open(file_path, 'r') as rf:
             ann_lines = rf.readlines()
         ann_lines = [ann.rstrip('\n') for ann in ann_lines]
-        np.random.shuffle(ann_lines)
+        # np.random.shuffle(ann_lines)
         return ann_lines, len(ann_lines)
 
     def _parse_annotation(self, ann_line):
@@ -72,9 +71,11 @@ class Dataset:
                 np.random.shuffle(self.ann_lines)
             ann_line = self.ann_lines[index]
             res = self._parse_annotation(ann_line)
-            batch_image[num, :, :, :] = res[0]
             if self.train:
+                batch_image[num, :, :, :] = res[0]
                 batch_class[num, :] = np.eye(CFG.num_classes)[res[1]]
+            else:
+                batch_image[num, :, :, :] = res
             num += 1
         if self.train:
             return batch_image, batch_class
