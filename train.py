@@ -82,21 +82,21 @@ for epoch in range(1, 1+CFG.train_epoch):
         loss_val = cce(val_class, pred)
         avg_val_loss.update_state(loss_val)
 
-    tf.print("Average train loss:      %.5f" % avg_loss)
-    tf.print("Average validation loss: %.5f" % avg_val_loss)
+    tf.print("Average train loss:      %.5f" % avg_loss.result().numpy())
+    tf.print("Average validation loss: %.5f" % avg_val_loss.result().numpy())
 
     if epoch == 1:
-        n_err_raise = 0
-        val_loss_last = avg_val_loss
-    elif avg_val_loss < val_loss_last:
         n_loss_raise = 0
-        val_loss_last = avg_val_loss
+        val_loss_last = avg_val_loss.result().numpy()
+    elif avg_val_loss.result().numpy() < val_loss_last:
+        n_loss_raise = 0
+        val_loss_last = avg_val_loss.result().numpy()
     elif n_loss_raise < 2:
         n_loss_raise += 1
-        val_loss_last = avg_val_loss
+        val_loss_last = avg_val_loss.result().numpy()
         avg_loss.reset_states()
         avg_val_loss.reset_states()
-        tf.print("Validation loss raise:", n_err_raise, "/ 3")
+        tf.print("Validation loss raise:", n_loss_raise, "/ 3")
         continue
     else:
         avg_loss.reset_states()
@@ -109,4 +109,4 @@ for epoch in range(1, 1+CFG.train_epoch):
     save_path = manager.save()
     tf.print("Saved checkpoint for epoch", epoch, ":", save_path)
 
-tf.print("Finish training. Time taken: %.2f" % (time.time()-start)/3600, "h.")
+tf.print("Finish training. Time taken: %.2f" % time.time()-start), "h.")

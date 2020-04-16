@@ -52,6 +52,12 @@ class ConvBlock(tf.keras.layers.Layer):
         nl: str
     ):
         super().__init__(name="ConvBlock")
+        self.pad = tf.keras.layers.ZeroPadding2D(
+            padding=(
+                ((kernel_size-1)//2, kernel_size//2),
+                ((kernel_size-1)//2, kernel_size//2)
+            )
+        ) if kernel_size > 1 else Identity()
         self.conv = tf.keras.layers.Conv2D(
             filters=filters, kernel_size=kernel_size, strides=stride,
             kernel_regularizer=tf.keras.regularizers.l2(1e-5),
@@ -67,7 +73,8 @@ class ConvBlock(tf.keras.layers.Layer):
         self.act = _available_act[nl] if nl else Identity()
 
     def call(self, input):
-        x = self.conv(input)
+        x = self.pad(input)
+        x = self.conv(x)
         x = self.norm(x)
         x = self.act(x)
         return x

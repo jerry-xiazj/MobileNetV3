@@ -85,4 +85,4 @@ class Dataset:
         if CFG.data_aug:
             image = self.random_horizontal_flip(image)
         image = self.resize_img(image, CFG.input_shape)
-        return image, ann_line[1]
+        return image, int(ann_line[1])
