@@ -6,9 +6,9 @@ from easydict import EasyDict as edict
 CFG = edict()
 # config train
 CFG.data_aug = False
-CFG.train_epoch = 60
+CFG.train_epoch = 120
 CFG.batch_size = 5
-CFG.batch_per_epoch = 20
+CFG.batch_per_epoch = 13
 CFG.lr_init = 0.1
 CFG.lr_decay = 0.09
 CFG.decay_step = 3 * CFG.batch_per_epoch
