@@ -20,11 +20,19 @@ CFG.log_dir = "./log/"
 CFG.checkpoint_dir = CFG.log_dir + "ckpt/"
 CFG.checkpoint_prefix = CFG.checkpoint_dir + "ckpt"
 # config data
+<<<<<<< HEAD
 # CFG.classes = ["person", "bird", "cat", "cow", "dog", "horse",
 #                "sheep", "aeroplane", "bicycle", "boat", "bus",
 #                "car", "motorbike", "train", "bottle", "chair",
 #                "diningtable", "pottedplant", "sofa", "tvmonitor"]
 CFG.classes = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+=======
+# CFG.classes = ["YY", "OO", "other"]
+CFG.classes = ["person", "bird", "cat", "cow", "dog", "horse",
+               "sheep", "aeroplane", "bicycle", "boat", "bus",
+               "car", "motorbike", "train", "bottle", "chair",
+               "diningtable", "pottedplant", "sofa", "tvmonitor"]
+>>>>>>> 96f0b778e570a47dd5fa84508d52deb12ef0618a
 CFG.num_classes = len(CFG.classes)
 # config model
 CFG.input_shape = [224, 224]

@@ -109,4 +109,4 @@ for epoch in range(1, 1+CFG.train_epoch):
     save_path = manager.save()
     tf.print("Saved checkpoint for epoch", epoch, ":", save_path)
 
-tf.print("Finish training. Time taken: %.2f" % time.time()-start, "sec.")
+tf.print("Finish training. Time taken:", time.time()-start, "sec.")

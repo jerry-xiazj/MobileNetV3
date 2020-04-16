@@ -2,6 +2,7 @@
 /env/
 /log/
 /test/
+/data/
 *.h5
 __pycache__/
 test*
