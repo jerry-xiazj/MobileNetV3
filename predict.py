@@ -13,7 +13,7 @@ tf.keras.backend.set_learning_phase(False)
 ####################################
 #          Generate Dataset        #
 ####################################
-test_set = Dataset(CFG.val_file, CFG.batch_size, 1, train=False)
+test_set = Dataset(CFG.test_file, CFG.batch_size, 1, train=False)
 
 ####################################
 #           Create Model           #
@@ -41,7 +41,6 @@ start = time.time()
 test_img = test_set.generate_batch()
 pred = model(test_img)
 index = tf.argmax(pred, axis=-1).numpy()
-
 
 for i, img in enumerate(test_set.generate_origin()):
     classes = CFG.classes[index[i]]

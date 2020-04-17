@@ -27,7 +27,12 @@ class Dataset:
         with tf.device('/cpu:0'):
             if self.batch_count < self.batch_per_epoch:
                 self.batch_count += 1
-                return self.batch_count, self.generate_batch()
+                if self.train:
+                    batch_image, batch_class = self.generate_batch()
+                    return self.batch_count, batch_image, batch_class
+                else:
+                    batch_image = self.generate_batch()
+                    return self.batch_count, batch_image
             else:
                 self.batch_count = 0
                 raise StopIteration
