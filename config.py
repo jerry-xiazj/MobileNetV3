@@ -18,7 +18,6 @@ CFG.val_file = "./data/person_val_file"
 CFG.test_file = "./data/person_val_file"
 CFG.log_dir = "./log/"
 CFG.checkpoint_dir = CFG.log_dir + "ckpt_person/"
-CFG.checkpoint_prefix = CFG.checkpoint_dir + "ckpt"
 # config data
 # CFG.classes = ["person", "bird", "cat", "cow", "dog", "horse",
 #                "sheep", "aeroplane", "bicycle", "boat", "bus",
